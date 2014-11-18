@@ -1,5 +1,11 @@
-.idea/
 .DS_Store
-**/out
+.idea/
+.gradle/
+**/out/
+# ignore both build/ and app/build/
+**/build/
 *.iml
 *.class
+*.apk
+*.ap_
+local.properties
