@@ -1,0 +1,2 @@
+test06 answer: 10085071687
+test10 answer: 106088278959
