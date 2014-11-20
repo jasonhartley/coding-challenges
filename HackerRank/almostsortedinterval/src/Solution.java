@@ -257,4 +257,8 @@ public class Solution {
 	/*private void recordSubtracts(TreeMap<Integer, Integer> dropSubtracts, int lastDropPos, int subtracts) {
 		// Maybe use this later
 	}*/
+
+	// Note:
+	// test06 answer: 10085071687
+	// test10 answer: 106088278959
 }
