@@ -68,7 +68,7 @@ public class Solution {
 
 		// Step 1. Build the drops table and subtracts table
 		// =================================================
-		System.out.print("^");// First one is always a new max
+//		System.out.print("^");// First one is always a new max
 		maxValues.put(0, values.get(0));
 
 		for (int pos = 1; pos < len; pos++) {
@@ -77,7 +77,7 @@ public class Solution {
 
 			// IF WE FOUND A DROP
 			if (values.get(pos - 1) > val) {
-				System.out.print("o");// A drop
+//				System.out.print("o");// A drop
 				// Record this drop
 				dropValues.put(pos, val);
 				// Record drop length
@@ -107,7 +107,7 @@ public class Solution {
 			else {
 				// IF WE FOUND A NEW MAX
 				if (val > lastMax) {
-					System.out.print("^");// A new max
+//					System.out.print("^");// A new max
 					lastMaxPos = pos;
 					lastMax = values.get(lastMaxPos);
 					// Record the new max
@@ -125,7 +125,7 @@ public class Solution {
 				}
 				// IF WE FOUND A SUBTRACT
 				else {
-					System.out.print(".");// A subtract (the number is ascending, but it is not a new max)
+//					System.out.print(".");// A subtract (the number is ascending, but it is not a new max)
 					subtracts++;
 				}
 				// Any increase is an increase in drop length
@@ -148,24 +148,24 @@ public class Solution {
 			}
 //			System.out.println();
 		}
-		System.out.println();
+//		System.out.println();
 
 
-		System.out.println("drop values: " + dropValues);
-		//System.out.println("drop subtracts: " + dropSubtracts);
-		System.out.println("drop lengths: " + dropLengths);
-		System.out.println("max values: " + maxValues);
-		System.out.println("subtract max: " + subtractMax);
-		System.out.println("subtract count: " + subtractCount);// + " " + dropSubtracts.size());
-		long time1 = System.currentTimeMillis() - start;
-		System.out.println("Step One time: " + time1);
+//		System.out.println("drop values: " + dropValues);
+//		//System.out.println("drop subtracts: " + dropSubtracts);
+//		System.out.println("drop lengths: " + dropLengths);
+//		System.out.println("max values: " + maxValues);
+//		System.out.println("subtract max: " + subtractMax);
+//		System.out.println("subtract count: " + subtractCount);// + " " + dropSubtracts.size());
+//		long time1 = System.currentTimeMillis() - start;
+//		System.out.println("Step One time: " + time1);
 
 		// Step 2. Count the almost-sorted intervals
 		// =========================================
 		for (int pos = 0; pos < len; pos++) {
 			val = values.get(pos);
 			keySet = (NavigableSet<Integer>) dropValues.tailMap(pos).keySet();// tailMap() trims all the drops from the beginning we don't need
-			System.out.print("pos: " + pos);
+//			System.out.print("pos: " + pos);
 //			System.out.print(" keySet: " + keySet);
 
 			// Find the brake position - maximum time: O(n) todo: find a faster way to find the brake, like O(log(n))
@@ -176,7 +176,7 @@ public class Solution {
 					break;
 				}
 			}
-			System.out.print(" brake: " + brakePos);
+//			System.out.print(" brake: " + brakePos);
 
 
 			// Sum the subtracts  todo: combine this loop with the find-brake loop
@@ -184,7 +184,7 @@ public class Solution {
 			//keySet = dropSubtracts.tailMap(pos + 1).keySet();
 			// Probably will want to do away with the pos+1 here.  We need to find the max value of the segment.
 			//keySet = dropValues.tailMap(pos).keySet();// dropSubtracts is deprecated, plus they have the same key set
-			System.out.println(" keySet: " + keySet);
+//			System.out.println(" keySet: " + keySet);
 			NavigableSet<Integer> subSet1;// To use subSet(), but be a NavigableSet
 			//int prevI = 0;
 			int subMax;
@@ -197,9 +197,9 @@ public class Solution {
 				while (p != q) {
 					lastMax = values.get(p++);
 				}
-				System.out.print(" new");
+//				System.out.print(" new");
 			}
-			System.out.print(" init lastMax: " + lastMax);
+//			System.out.print(" init lastMax: " + lastMax);
 
 			for (int i : keySet) {
 				if (i < brakePos) {
@@ -211,9 +211,9 @@ public class Solution {
 
 					subSet1 = new TreeSet<Integer>(values.subList(i, i + dropLengths.get(i)));// todo: make values be a set and use subSet() cuz faster?
 					//subSet1 = new TreeSet<Integer>(values.subList(i, i + dropSubtracts.get(i)));// doing this with subtracts is incorrect
-					System.out.print("  subSet1: " + subSet1);
+//					System.out.print("  subSet1: " + subSet1);
 					subMax = subSet1.last();
-					System.out.print(" subMax: " + subMax);
+//					System.out.print(" subMax: " + subMax);
 					if (lastMax < subMax) {
 						//Time to investigate!
 						subSubtract = subSet1.headSet(lastMax).size();
@@ -226,8 +226,8 @@ public class Solution {
 					else {
 						System.out.println("Error.  lastMax == subMax.");
 					}
-					System.out.print(" subSubtract: " + subSubtract);
-					System.out.println(" lastMax: " + lastMax);
+//					System.out.print(" subSubtract: " + subSubtract);
+//					System.out.println(" lastMax: " + lastMax);
 
 					subtracts += subSubtract;
 				}
@@ -236,20 +236,20 @@ public class Solution {
 					break;// Once we get to the brake, stop iterating
 				}
 			}
-			System.out.print("    subtracts: " + subtracts);
+//			System.out.print("    subtracts: " + subtracts);
 
 			// Calculate the length of this interval's segment
 			segmentLen = brakePos - pos;
-			System.out.print(" segmentLen: " + segmentLen);
+//			System.out.print(" segmentLen: " + segmentLen);
 
 			// Count the almost-sorted intervals for this iteration by subtracting the "subtracts" from this segment
 			subtotal = segmentLen - subtracts;
-			System.out.println(" subtotal: " + subtotal);
+//			System.out.println(" subtotal: " + subtotal);
 			total += subtotal;
 		}
 
-		long time2 = System.currentTimeMillis() - start - time1;
-		System.out.println("Step Two time: " + time2);
+//		long time2 = System.currentTimeMillis() - start - time1;
+//		System.out.println("Step Two time: " + time2);
 
 		return total;
 	}
